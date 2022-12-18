@@ -19,6 +19,8 @@ entity target_top is
 		clock_3p58 : in std_logic;
 		reset      : in std_logic;
 
+		switches_i : in from_SWITCHES_t;
+		
 		dn_addr    : in  std_logic_vector(15 downto 0);
 		dn_data    : in  std_logic_vector(7 downto 0);
 		dn_wr      : in  std_logic;
@@ -55,7 +57,6 @@ architecture SYN of target_top is
 
   signal clkrst_i       : from_CLKRST_t;
   signal buttons_i      : from_BUTTONS_t;
-  signal switches_i     : from_SWITCHES_t;
   signal leds_o         : to_LEDS_t;
   signal inputs_i       : from_INPUTS_t;
   signal flash_i        : from_FLASH_t;

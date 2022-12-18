@@ -585,7 +585,8 @@ begin
 		);
   tilemap_o(1).attr_d(15 downto 8) <= (others => '0');
   
-  GEN_WRAM : if M52_USE_INTERNAL_WRAM generate
+  GEN_WRAM :
+	if M52_USE_INTERNAL_WRAM generate
   
     wram_inst : entity work.dpram  generic map(11)
       port map
@@ -604,8 +605,10 @@ begin
       );
 
     sram_o <= NULL_TO_SRAM;
-    
-  else generate
+  end generate;
+  
+  GEN_WRAM2 :
+	if not M52_USE_INTERNAL_WRAM generate
   
     -- SRAM signals (may or may not be used)
     sram_o.a <= std_logic_vector(resize(unsigned(cpu_a(10 downto 0)), sram_o.a'length));
@@ -616,8 +619,8 @@ begin
     sram_o.oe <= wram_cs and not cpu_mem_wr;
     sram_o.we <= wram_wr;
 
-  end generate GEN_WRAM;
-		
+  end generate;
+
   -- unused outputs
 
   flash_o <= NULL_TO_FLASH;

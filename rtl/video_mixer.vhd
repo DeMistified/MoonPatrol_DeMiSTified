@@ -30,20 +30,26 @@ architecture SYN of pace_video_mixer is
   signal bg_rgb : RGB_t;
 begin
 
-  GEN_BITMAPS : 
-    if PACE_VIDEO_NUM_BITMAPS = 1 generate
-      bg_rgb <= bitmap_ctl_o(1).rgb;
-    elsif PACE_VIDEO_NUM_BITMAPS = 2 generate
-      bg_rgb <= bitmap_ctl_o(1).rgb when bitmap_ctl_o(1).set = '1' else
-                bitmap_ctl_o(2).rgb;
-    elsif PACE_VIDEO_NUM_BITMAPS = 3 generate
-      bg_rgb <= bitmap_ctl_o(1).rgb when bitmap_ctl_o(1).set = '1' else
-                bitmap_ctl_o(2).rgb when bitmap_ctl_o(2).set = '1' else
-                bitmap_ctl_o(3).rgb when bitmap_ctl_o(3).set = '1' else
-                (others => (others => '0'));
-    else generate
-      bg_rgb <= (others => (others => '0'));
-  end generate GEN_BITMAPS;
+	GEN_BITMAPS1 : 
+		if PACE_VIDEO_NUM_BITMAPS = 1 generate
+			bg_rgb <= bitmap_ctl_o(1).rgb;
+		end generate;
+	gen_bitmaps2 : 
+		if PACE_VIDEO_NUM_BITMAPS = 2 generate
+			bg_rgb <= bitmap_ctl_o(1).rgb when bitmap_ctl_o(1).set = '1' else
+			bitmap_ctl_o(2).rgb;
+		end generate;
+	gen_bitmaps3:
+		if PACE_VIDEO_NUM_BITMAPS = 3 generate
+			bg_rgb <= bitmap_ctl_o(1).rgb when bitmap_ctl_o(1).set = '1' else
+			bitmap_ctl_o(2).rgb when bitmap_ctl_o(2).set = '1' else
+			bitmap_ctl_o(3).rgb when bitmap_ctl_o(3).set = '1' else
+			(others => (others => '0'));
+		end generate;
+	gen_bitmaps4:
+		if PACE_VIDEO_NUM_BITMAPS <1 or PACE_VIDEO_NUM_BITMAPS>3 generate
+			bg_rgb <= (others => (others => '0'));
+		end generate;
     
   GEN_TILEMAPS : 
     if PACE_VIDEO_NUM_TILEMAPS = 1 generate
@@ -51,16 +57,20 @@ begin
                 tilemap_ctl_o(1).rgb when tilemap_ctl_o(1).set = '1' else
                 sprite_rgb when sprite_set = '1' else
                 bg_rgb;
-    elsif PACE_VIDEO_NUM_TILEMAPS = 2 generate
+	end generate;
+  GEN_TILEMAPS2 : 
+    if PACE_VIDEO_NUM_TILEMAPS = 2 generate
       rgb_o <=  sprite_rgb when sprite_set = '1' and sprite_pri = '1' else
                 tilemap_ctl_o(1).rgb when tilemap_ctl_o(1).set = '1' else
                 tilemap_ctl_o(2).rgb when tilemap_ctl_o(2).set = '1' else
                 sprite_rgb when sprite_set = '1' else
                 bg_rgb;
-    else generate
+	end generate;
+  GEN_TILEMAPS3 : 
+    if PACE_VIDEO_NUM_TILEMAPS < 1 or PACE_VIDEO_NUM_TILEMAPS > 2 generate
       rgb_o <=  sprite_rgb when sprite_set = '1' and sprite_pri = '1' else
                 sprite_rgb when sprite_set = '1' else
                 bg_rgb;
-  end generate GEN_TILEMAPS;
+	end generate;
   
 end architecture SYN;

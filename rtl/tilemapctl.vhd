@@ -14,9 +14,10 @@ use work.video_controller_pkg.all;
 --
 --	Tile data is 2 BPP.
 --
-
 architecture TILEMAP_1 of tilemapCtl is
-
+  attribute altera_attribute : string;
+  attribute altera_attribute of TILEMAP_1 :
+    architecture is "-name AUTO_ROM_RECOGNITION OFF";
   alias clk       : std_logic is video_ctl.clk;
   alias clk_ena   : std_logic is video_ctl.clk_ena;
   alias stb       : std_logic is video_ctl.stb;

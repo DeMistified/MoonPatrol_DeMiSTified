@@ -75,8 +75,11 @@ begin
       inputs(0).d <= jamma_v(0).d; -- 1E
       inputs(1).d <= jamma_v(1).d; -- 1D
       inputs(2).d <= jamma_v(2).d; -- 1C
-      inputs(3).d <= "11111110";  -- 1C/1C, 10/30/50K, 3 lives
-      inputs(4).d <= "11111100";
+      inputs(3).d <= dips(7 downto 0); --"11111111";  -- 1C/1C, 10/30/50K, 3 lives
+		
+      inputs(4).d <= dips(15 downto 8);--"11111100";
+--      inputs(3).d <= "11111110";  -- 1C/1C, 10/30/50K, 3 lives
+--      inputs(4).d <= "11111100";
       -- activate service which is only checked on startup
       --inputs(4).d <= "01111100";
       inputs(NUM_INPUTS-1).d <= (others =>'0');
