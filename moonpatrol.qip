@@ -40,4 +40,4 @@ set_global_assignment -name VHDL_FILE [file join $::quartus(qip_path) rtl/bitmap
 set_global_assignment -name VHDL_FILE [file join $::quartus(qip_path) rtl/target_top.vhd]
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "rtl/hiscore.v"]
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "rtl/pause.v"]
-set_global_assignment -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "moonpatrol_mist.sv"]
+set_global_assignment -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "moonpatrol_demist.sv"]
