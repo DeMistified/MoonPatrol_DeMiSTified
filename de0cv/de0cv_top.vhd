@@ -79,6 +79,10 @@ entity de0cv_top is
       I2S_LR   : out std_logic; --I2S_LR
       I2S_D    : out std_logic; --I2S_D    
 
+
+      AUDIO_L   : out std_logic; --DeltaSigma Audio Out L Channel
+      AUDIO_R   : out std_logic; --DeltaSigma Audio Out R Channel
+
 		pDac_VR			: out std_logic_vector(  3 downto 0);		-- RGB_Red / Svideo_C
 		pDac_VG			: out std_logic_vector(  3 downto 0);		-- RGB_Grn / Svideo_Y
 		pDac_VB			: out std_logic_vector(  3 downto 0);		-- RGB_Blu / CompositeVideo
@@ -292,8 +296,8 @@ guest: COMPONENT MoonPatrol_MiST
 		-- vga_x_vs  => vga_x_vs,        
     
 		--AUDIO
-		--AUDIO_L => sigma_l,
-		--AUDIO_R => sigma_r,
+		AUDIO_L => AUDIO_L,
+		AUDIO_R => AUDIO_R,
         DAC_L   => dac_l,
         DAC_R   => dac_r
       
